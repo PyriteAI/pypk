@@ -30,6 +30,7 @@ def create(
                 package_name=package.name, author=author, author_email=author_email, python_version=python_version
             )
         )
+    package.joinpath("requirements", "requirements.in").touch(exist_ok=True)
     with package.joinpath("requirements", "dev-requirements.in").open("w") as f:
         f.write(_contents.DEVREQUIREMENTS)
     package.joinpath("src", package.name, "__init__.py").touch(exist_ok=True)
