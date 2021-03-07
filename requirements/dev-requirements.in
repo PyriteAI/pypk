@@ -7,3 +7,5 @@ pre-commit
 pytest
 safety
 setuptools_scm
+twine
+wheel
