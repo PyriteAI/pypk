@@ -104,6 +104,8 @@ requests==2.25.1
     # via safety
 safety==1.10.3
     # via -r dev-requirements.in
+setuptools-scm==5.0.2
+    # via -r dev-requirements.in
 six==1.15.0
     # via
     #   bandit

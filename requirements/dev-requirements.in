@@ -6,3 +6,4 @@ isort
 pre-commit
 pytest
 safety
+setuptools_scm
