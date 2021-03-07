@@ -4,17 +4,18 @@ An opinionated Python packaging template generator.
 
 ## Installation
 
-`pip install https://github.com/PyriteAI/pypk`
+`pip install pypk`
 
 ## Getting Started
 
-### Prerequisites
-
-1. Python virtual environment created
-2. Virtual environment has been sourced.
+It's recommended you install and use pypk in the same virtual environment you plan to develop your Python package in.
 
 ### Usage
 
 ```sh
 python -m pypk </path/to/project/root> <author-name> <author-email> --version 3.X.X
 ```
+
+where `--version` is the _minimum_ Python version supported.
+
+Run `python -m pypk --help` for more details.
