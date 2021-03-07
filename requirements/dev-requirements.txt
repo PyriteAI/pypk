@@ -9,7 +9,9 @@ appdirs==1.4.4
     #   black
     #   virtualenv
 attrs==20.3.0
-    # via flake8-bugbear
+    # via
+    #   flake8-bugbear
+    #   pytest
 bandit==1.7.0
     # via -r dev-requirements.in
 black==20.8b1
@@ -49,13 +51,17 @@ idna==2.10
 importlib-metadata==3.7.0
     # via
     #   flake8
+    #   pluggy
     #   pre-commit
+    #   pytest
     #   stevedore
     #   virtualenv
 importlib-resources==5.1.2
     # via
     #   pre-commit
     #   virtualenv
+iniconfig==1.1.1
+    # via pytest
 isort==5.7.0
     # via -r dev-requirements.in
 mccabe==0.6.1
@@ -67,19 +73,26 @@ nodeenv==1.5.0
 packaging==20.9
     # via
     #   dparse
+    #   pytest
     #   safety
 pathspec==0.8.1
     # via black
 pbr==5.5.1
     # via stevedore
+pluggy==0.13.1
+    # via pytest
 pre-commit==2.10.1
     # via -r dev-requirements.in
+py==1.10.0
+    # via pytest
 pycodestyle==2.6.0
     # via flake8
 pyflakes==2.2.0
     # via flake8
 pyparsing==2.4.7
     # via packaging
+pytest==6.2.2
+    # via -r dev-requirements.in
 pyyaml==5.4.1
     # via
     #   bandit
@@ -104,6 +117,7 @@ toml==0.10.2
     #   black
     #   dparse
     #   pre-commit
+    #   pytest
 typed-ast==1.4.2
     # via black
 typing-extensions==3.7.4.3
