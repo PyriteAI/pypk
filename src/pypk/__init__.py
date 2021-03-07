@@ -18,7 +18,7 @@ def create(
     with package.joinpath(".gitignore").open("w") as f:
         f.write(_contents.GITIGNORE)
     with package.joinpath(".pre-commit-config.yaml").open("w") as f:
-        f.write(_contents.PRECOMMIT)
+        f.write(_contents.PRECOMMIT.format(package_name=package.name))
     with package.joinpath("pyproject.toml").open("w") as f:
         target_version = f"py{''.join(python_version.split('.')[:2])}"
         f.write(_contents.PYPROJECT.format(package_name=package.name, target_version=target_version))

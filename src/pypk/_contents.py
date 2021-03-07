@@ -68,7 +68,7 @@ repos:
     hooks:
       - id: pytest
         name: pytest
-        entry: pytest src/pypk
+        entry: pytest src/{package_name}
         language: system
         pass_filenames: false
         types: [python]

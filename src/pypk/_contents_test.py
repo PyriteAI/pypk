@@ -46,3 +46,47 @@ setup(
         package_name="foo", author="bar", author_email="baz@cool.com", python_version="3.6.0"
     )
     assert actual == expected
+
+
+def test_precommit():
+    expected = """# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-json
+      - id: check-yaml
+      - id: check-added-large-files
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.7.0
+    hooks:
+      - id: isort
+  - repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+        language_version: python3
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.4
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-bugbear]
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.0
+    hooks:
+      - id: bandit
+        args: ["-x", "*/**/*_test.py"]
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: pytest src/foo
+        language: system
+        pass_filenames: false
+        types: [python]
+"""
+    actual = _contents.PRECOMMIT.format(package_name="foo")
+    assert actual == expected
