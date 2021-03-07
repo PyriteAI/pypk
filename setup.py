@@ -4,6 +4,7 @@ from setuptools import find_packages, setup
 
 HERE = Path(__file__).parent
 README = HERE.joinpath("README.md").read_text()
+REQUIREMENTS = HERE.joinpath("requirements", "requirements.in").read_text().split()
 
 setup(
     name="pypk",
@@ -23,5 +24,6 @@ setup(
     package_dir={"": "src"},
     use_scm_version={"write_to": "src/pypk/version.py"},
     setup_requires=["setuptools_scm"],
+    install_requires=REQUIREMENTS,
     python_requires=">=3.6.0",
 )
