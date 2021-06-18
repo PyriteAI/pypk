@@ -1,7 +1,10 @@
+import re
 import subprocess  # nosec
 from pathlib import Path
 
 from . import _contents
+
+_PYTHON_VERSION_REGEX = re.compile(r"^3\.\d+\.\d+$")
 
 
 def create(
@@ -11,6 +14,9 @@ def create(
     python_version: str,
     init_git: bool = True,
 ) -> None:
+    if _PYTHON_VERSION_REGEX.match(python_version) is None:
+        raise ValueError(f"invalid Python version '{python_version}' - must of the form 3.X.X")
+
     srcdir = package.name.replace("-", "_")
 
     package.mkdir(parents=True, exist_ok=True)
