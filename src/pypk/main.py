@@ -5,7 +5,7 @@ from typing import NoReturn, Optional
 import typer
 
 from . import core
-from .config import load_custom_config, try_load_default_config
+from .config import load_custom_config, save_as_default_config, try_load_default_config
 from .version import version as pypk_version
 
 _CURRENT_VERSION = f"{sys.version_info.major}.{sys.version_info.minor}.0"
@@ -55,6 +55,27 @@ def create(
         exit_with_status("[Error] 'version' must be specified in either the config or via command line")
 
     core.create(package, author, email, python_version, description=description, init_git=init_git, tests_dir=tests_dir)
+
+
+@app.command()
+def config(key: str, value: Optional[str] = typer.Argument(None)):  # noqa: B008
+    try:
+        cfg = try_load_default_config()
+    except Exception as e:
+        exit_with_status(f"[Error] failed to load config: '{e}'")
+
+    if key not in ["author", "email", "py_version", "init_git", "tests_dir"]:
+        exit_with_status(f"[Error] invalid key '{key}'")
+
+    if value:
+        cfg[key] = value
+        save_as_default_config(cfg)
+    else:
+        value = cfg.get(key)
+        if value:
+            typer.echo(f"'{key}' = '{value}'")
+        else:
+            typer.echo(f"'{key}' is not set")
 
 
 @app.command()
