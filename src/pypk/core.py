@@ -11,8 +11,10 @@ def create(
     python_version: str,
     init_git: bool = True,
 ) -> None:
+    srcdir = package.name.replace("-", "_")
+
     package.mkdir(parents=True, exist_ok=True)
-    package.joinpath("src", package.name).mkdir(parents=True, exist_ok=True)
+    package.joinpath("src", srcdir).mkdir(parents=True, exist_ok=True)
     package.joinpath("requirements").mkdir(exist_ok=True)
     with package.joinpath(".flake8").open("w") as f:
         f.write(_contents.FLAKE8)
@@ -34,7 +36,7 @@ def create(
     package.joinpath("requirements", "requirements.in").touch(exist_ok=True)
     with package.joinpath("requirements", "dev-requirements.in").open("w") as f:
         f.write(_contents.DEVREQUIREMENTS)
-    package.joinpath("src", package.name, "__init__.py").touch(exist_ok=True)
+    package.joinpath("src", srcdir, "__init__.py").touch(exist_ok=True)
     if init_git:
         subprocess.run(["git", "init"], cwd=package)  # nosec
 
