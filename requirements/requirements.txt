@@ -6,3 +6,7 @@
 #
 appdirs==1.4.4
     # via -r requirements.in
+click==7.1.2
+    # via typer
+typer==0.3.2
+    # via -r requirements.in
