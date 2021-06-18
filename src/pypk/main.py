@@ -1,3 +1,4 @@
+import json
 import sys
 from pathlib import Path
 from typing import NoReturn, Optional
@@ -30,9 +31,9 @@ def create(
     python_version: str = typer.Option(  # noqa: B008
         _CURRENT_VERSION, "--py-version", "-p", help="Minimum Python version supported"
     ),
-    init_git: bool = typer.Option(True, "--init-git/--skip-git-init", help="Toggle Git initialization"),  # noqa: B008
+    init_git: bool = typer.Option(None, "--init-git/--skip-git-init", help="Toggle Git initialization"),  # noqa: B008
     tests_dir: bool = typer.Option(  # noqa: B008
-        False, "--create-tests-dir", help="Create a top-level tests directory"
+        None, "--create-tests-dir/--skip-tests-dir", help="Create a top-level tests directory"
     ),
 ) -> None:
     try:
@@ -46,6 +47,8 @@ def create(
     author = author if author else cfg.get("author")
     email = email if email else cfg.get("email")
     python_version = python_version if python_version else cfg.get("py_version")
+    init_git = init_git if init_git is not None else cfg.get("init_git", False)
+    tests_dir = tests_dir if tests_dir is not None else cfg.get("tests_dir", False)
 
     if author is None:
         exit_with_status("[Error] 'author' must be specified in either the config or via command line")
@@ -53,6 +56,10 @@ def create(
         exit_with_status("[Error] 'email' must be specified in either the config or via command line")
     if version is None:
         exit_with_status("[Error] 'version' must be specified in either the config or via command line")
+    if not isinstance(init_git, bool):
+        exit_with_status("[Error] 'init_git' must be a boolean")
+    if not isinstance(tests_dir, bool):
+        exit_with_status("[Error] 'tests_dir' must be a boolean")
 
     core.create(package, author, email, python_version, description=description, init_git=init_git, tests_dir=tests_dir)
 
@@ -68,6 +75,10 @@ def config(key: str, value: Optional[str] = typer.Argument(None)):  # noqa: B008
         exit_with_status(f"[Error] invalid key '{key}'")
 
     if value:
+        if key in ["init_git", "tests_dir"]:
+            value = json.loads(value.lower())  # hacky, but it works
+            if not isinstance(value, bool):
+                exit_with_status(f"[Error] '{key}' must be a boolean")
         cfg[key] = value
         save_as_default_config(cfg)
     else:
