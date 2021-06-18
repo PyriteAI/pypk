@@ -28,4 +28,10 @@ def try_load_default_config() -> Dict[str, str]:
         return config
 
 
-__all__ = ["load_custom_config", "try_load_default_config"]
+def save_as_default_config(cfg: Dict[str, str]):
+    config_path = Path(user_config_dir("pypk", "Pyrite AI")).joinpath("config.json")
+    with config_path.open("w") as f:
+        json.dump(cfg, f)
+
+
+__all__ = ["load_custom_config", "save_as_default_config", "try_load_default_config"]
