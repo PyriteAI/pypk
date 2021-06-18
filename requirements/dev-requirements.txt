@@ -15,11 +15,11 @@ attrs==21.2.0
     #   pytest
 bandit==1.7.0
     # via -r dev-requirements.in
-black==21.5b1
+black==21.6b0
     # via -r dev-requirements.in
 bleach==3.3.0
     # via readme-renderer
-certifi==2020.12.5
+certifi==2021.5.30
     # via requests
 cffi==1.14.5
     # via cryptography
@@ -38,7 +38,7 @@ cryptography==3.4.7
     # via secretstorage
 dataclasses==0.8
     # via black
-distlib==0.3.1
+distlib==0.3.2
     # via virtualenv
 docutils==0.17.1
     # via readme-renderer
@@ -54,13 +54,13 @@ flake8==3.9.2
     #   flake8-bugbear
 gitdb==4.0.7
     # via gitpython
-gitpython==3.1.17
+gitpython==3.1.18
     # via bandit
-identify==2.2.6
+identify==2.2.10
     # via pre-commit
 idna==2.10
     # via requests
-importlib-metadata==4.2.0
+importlib-metadata==4.5.0
     # via
     #   flake8
     #   keyring
@@ -160,7 +160,7 @@ toml==0.10.2
     #   dparse
     #   pre-commit
     #   pytest
-tqdm==4.61.0
+tqdm==4.61.1
     # via twine
 twine==3.4.1
     # via -r dev-requirements.in
