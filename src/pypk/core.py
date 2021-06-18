@@ -1,6 +1,7 @@
 import re
 import subprocess  # nosec
 from pathlib import Path
+from typing import Optional
 
 from . import _contents
 
@@ -12,10 +13,13 @@ def create(
     author: str,
     author_email: str,
     python_version: str,
+    description: Optional[str] = None,
     init_git: bool = True,
 ) -> None:
     if _PYTHON_VERSION_REGEX.match(python_version) is None:
         raise ValueError(f"invalid Python version '{python_version}' - must of the form 3.X.X")
+    if description is None:
+        description = ""
 
     srcdir = package.name.replace("-", "_")
 
@@ -36,7 +40,11 @@ def create(
     with package.joinpath("setup.py").open("w") as f:
         f.write(
             _contents.SETUP.format(
-                package_name=package.name, author=author, author_email=author_email, python_version=python_version
+                package_name=package.name,
+                author=author,
+                author_email=author_email,
+                description=description,
+                python_version=python_version,
             )
         )
     package.joinpath("requirements", "requirements.in").touch(exist_ok=True)

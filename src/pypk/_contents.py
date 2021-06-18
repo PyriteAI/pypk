@@ -22,15 +22,24 @@ line_length = 120
 """
 README = """# {package_name}
 """
-SETUP = """from setuptools import find_packages, setup
+SETUP = """from pathlib import Path
+
+from setuptools import find_packages, setup
+
+HERE = Path(__file__).parent
+README = HERE.joinpath("README.md").read_text()
+REQUIREMENTS = HERE.joinpath("requirements", "requirements.in").read_text().split()
 
 setup(
     name="{package_name}",
     author="{author}",
     author_email="{author_email}",
-    description="",
+    description="{description}",
+    long_description=README,
+    long_description_content_type="text/markdown",
     packages=find_packages("src"),
     package_dir={{"": "src"}},
+    install_requires=REQUIREMENTS,
     python_requires=">={python_version}",
 )
 """

@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-from typing import NoReturn
+from typing import NoReturn, Optional
 
 import typer
 
@@ -24,6 +24,9 @@ def create(
     config: Path = typer.Option(None, "--config", "-c", help="Path to config file"),  # noqa: B008
     author: str = typer.Option(None, "--author", "-a", help="Author's name"),  # noqa: B008
     email: str = typer.Option(None, "--email", "-e", help="Author's email"),  # noqa: B008
+    description: Optional[str] = typer.Option(  # noqa: B008
+        None, "--description", "-d", help="Description to be placed in setup.py"
+    ),
     python_version: str = typer.Option(  # noqa: B008
         _CURRENT_VERSION, "--py-version", "-p", help="Minimum Python version supported"
     ),
@@ -48,7 +51,7 @@ def create(
     if version is None:
         exit_with_status("[Error] 'version' must be specified in either the config or via command line")
 
-    core.create(package, author, email, python_version, init_git=init_git)
+    core.create(package, author, email, python_version, description=description, init_git=init_git)
 
 
 @app.command()
