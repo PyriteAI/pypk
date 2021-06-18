@@ -6,6 +6,7 @@ import typer
 
 from . import core
 from .config import load_custom_config, try_load_default_config
+from .version import version as pypk_version
 
 app = typer.Typer()
 
@@ -43,6 +44,11 @@ def create(
         exit_with_status("[Error] 'version' must be specified in either the config or via command line")
 
     core.create(package, author, email, version)
+
+
+@app.command()
+def version():
+    typer.echo(pypk_version)
 
 
 __all__ = ["app"]
