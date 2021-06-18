@@ -9,6 +9,7 @@ def create(
     author: str,
     author_email: str,
     python_version: str,
+    init_git: bool = True,
 ) -> None:
     package.mkdir(parents=True, exist_ok=True)
     package.joinpath("src", package.name).mkdir(parents=True, exist_ok=True)
@@ -34,7 +35,8 @@ def create(
     with package.joinpath("requirements", "dev-requirements.in").open("w") as f:
         f.write(_contents.DEVREQUIREMENTS)
     package.joinpath("src", package.name, "__init__.py").touch(exist_ok=True)
-    subprocess.run(["git", "init"], cwd=package)  # nosec
+    if init_git:
+        subprocess.run(["git", "init"], cwd=package)  # nosec
 
 
 __all__ = ["create"]

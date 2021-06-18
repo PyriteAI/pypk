@@ -27,6 +27,7 @@ def create(
     version: str = typer.Option(  # noqa: B008
         _CURRENT_VERSION, "--version", "-v", help="Minimum Python version supported"
     ),
+    init_git: bool = typer.Option(True, "--init-git/--skip-git-init", help="Toggle Git initialization"),  # noqa: B008
 ) -> None:
     try:
         if config is not None:
@@ -47,7 +48,7 @@ def create(
     if version is None:
         exit_with_status("[Error] 'version' must be specified in either the config or via command line")
 
-    core.create(package, author, email, version)
+    core.create(package, author, email, version, init_git=init_git)
 
 
 @app.command()
