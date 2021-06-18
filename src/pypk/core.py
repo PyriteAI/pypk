@@ -15,6 +15,7 @@ def create(
     python_version: str,
     description: Optional[str] = None,
     init_git: bool = True,
+    tests_dir: bool = False,
 ) -> None:
     if _PYTHON_VERSION_REGEX.match(python_version) is None:
         raise ValueError(f"invalid Python version '{python_version}' - must of the form 3.X.X")
@@ -53,6 +54,8 @@ def create(
     package.joinpath("src", srcdir, "__init__.py").touch(exist_ok=True)
     if init_git:
         subprocess.run(["git", "init"], cwd=package)  # nosec
+    if tests_dir:
+        package.joinpath("tests").mkdir(exist_ok=True)
 
 
 __all__ = ["create"]

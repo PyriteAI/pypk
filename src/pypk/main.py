@@ -31,6 +31,9 @@ def create(
         _CURRENT_VERSION, "--py-version", "-p", help="Minimum Python version supported"
     ),
     init_git: bool = typer.Option(True, "--init-git/--skip-git-init", help="Toggle Git initialization"),  # noqa: B008
+    tests_dir: bool = typer.Option(  # noqa: B008
+        False, "--create-tests-dir", help="Create a top-level tests directory"
+    ),
 ) -> None:
     try:
         if config is not None:
@@ -51,7 +54,7 @@ def create(
     if version is None:
         exit_with_status("[Error] 'version' must be specified in either the config or via command line")
 
-    core.create(package, author, email, python_version, description=description, init_git=init_git)
+    core.create(package, author, email, python_version, description=description, init_git=init_git, tests_dir=tests_dir)
 
 
 @app.command()
