@@ -8,6 +8,8 @@ from . import core
 from .config import load_custom_config, try_load_default_config
 from .version import version as pypk_version
 
+_CURRENT_VERSION = f"{sys.version_info.major}.{sys.version_info.minor}.0"
+
 app = typer.Typer()
 
 
@@ -22,7 +24,9 @@ def create(
     config: Path = typer.Option(None, "--config", "-c", help="Path to config file"),  # noqa: B008
     author: str = typer.Option(None, "--author", "-a", help="Author's name"),  # noqa: B008
     email: str = typer.Option(None, "--email", "-e", help="Author's email"),  # noqa: B008
-    version: str = typer.Option("3.6.0", "--version", "-v", help="Minimum Python version supported"),  # noqa: B008
+    version: str = typer.Option(  # noqa: B008
+        _CURRENT_VERSION, "--version", "-v", help="Minimum Python version supported"
+    ),
 ) -> None:
     try:
         if config is not None:
