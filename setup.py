@@ -23,6 +23,7 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     use_scm_version={"write_to": "src/pypk/version.py"},
+    entry_points={"console_scripts": ["pypk=pypk.main:app"]},
     setup_requires=["setuptools_scm"],
     install_requires=REQUIREMENTS,
     python_requires=">=3.6.0",
