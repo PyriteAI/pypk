@@ -11,12 +11,7 @@ line-length = 120
 target-version = ["py36"]
 
 [tool.isort]
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-use_parentheses = true
-ensure_newline_before_comments = true
-line_length = 120
+profile = "black"
 """
     actual = _contents.PYPROJECT.format(package_name="foo", target_version="py36")
     assert actual == expected
@@ -62,7 +57,7 @@ def test_precommit():
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.1.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -70,21 +65,21 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
   - repo: https://github.com/PyCQA/isort
-    rev: 5.8.0
+    rev: 5.10.1
     hooks:
       - id: isort
   - repo: https://github.com/psf/black
-    rev: 21.6b0
+    rev: 22.1.0
     hooks:
       - id: black
         language_version: python3
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.2
+    rev: 4.0.1
     hooks:
       - id: flake8
         additional_dependencies: [flake8-bugbear]
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.0
+    rev: 1.7.1
     hooks:
       - id: bandit
         args: ["-x", "*/**/*_test.py"]

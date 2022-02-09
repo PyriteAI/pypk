@@ -1,6 +1,6 @@
 FLAKE8 = """[flake8]
 max-line-length = 120
-extend-ignore = E203,E501,W503
+extend-ignore = E203
 max-complexity = 12
 select = B,C,E,F,W,B9
 """
@@ -13,12 +13,7 @@ line-length = 120
 target-version = ["{target_version}"]
 
 [tool.isort]
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-use_parentheses = true
-ensure_newline_before_comments = true
-line_length = 120
+profile = "black"
 """
 README = """# {package_name}
 """
@@ -47,7 +42,7 @@ PRECOMMIT = """# See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.1.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -55,21 +50,21 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
   - repo: https://github.com/PyCQA/isort
-    rev: 5.8.0
+    rev: 5.10.1
     hooks:
       - id: isort
   - repo: https://github.com/psf/black
-    rev: 21.6b0
+    rev: 22.1.0
     hooks:
       - id: black
         language_version: python3
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.2
+    rev: 4.0.1
     hooks:
       - id: flake8
         additional_dependencies: [flake8-bugbear]
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.0
+    rev: 1.7.1
     hooks:
       - id: bandit
         args: ["-x", "*/**/*_test.py"]
@@ -108,7 +103,6 @@ tramp
 # Org-mode
 .org-id-locations
 *_archive
-ltximg/**
 
 # flymake-mode
 *_flymake.*
@@ -200,6 +194,9 @@ Temporary Items
 .idea/**/dictionaries
 .idea/**/shelf
 
+# AWS User-specific
+.idea/**/aws.xml
+
 # Generated files
 .idea/**/contentModel.xml
 
@@ -249,6 +246,9 @@ atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
 .idea/replstate.xml
+
+# SonarLint plugin
+.idea/sonarlint/
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
@@ -314,7 +314,6 @@ parts/
 sdist/
 var/
 wheels/
-pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -344,7 +343,7 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
-pytestdebug.log
+cover/
 
 # Translations
 *.mo
@@ -365,9 +364,9 @@ instance/
 
 # Sphinx documentation
 docs/_build/
-doc/_build/
 
 # PyBuilder
+.pybuilder/
 target/
 
 # Jupyter Notebook
@@ -378,7 +377,9 @@ profile_default/
 ipython_config.py
 
 # pyenv
-.python-version
+#   For a library or package, you might want to ignore these files since the code is
+#   intended to run in multiple environments; otherwise, check them in:
+# .python-version
 
 # pipenv
 #   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
@@ -386,6 +387,13 @@ ipython_config.py
 #   having no cross-platform support, pipenv may install dependencies that don't work, or not
 #   install all needed dependencies.
 #Pipfile.lock
+
+# poetry
+#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
+#   This is especially recommended for binary packages to ensure reproducibility, and is more
+#   commonly ignored for libraries.
+#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
+#poetry.lock
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
@@ -405,7 +413,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-pythonenv*
 
 # Spyder project settings
 .spyderproject
@@ -428,8 +435,15 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
-# profiling data
-.prof
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+#  JetBrains specific template is maintainted in a separate JetBrains.gitignore that can
+#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+#  and can be added to the global gitignore or merged into this file.  For a more nuclear
+#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+#.idea/
 
 ### SublimeText ###
 # Cache files for Sublime Text
@@ -446,6 +460,7 @@ dmypy.json
 
 # SFTP configuration file
 sftp-config.json
+sftp-config-alt*.json
 
 # Package control specific files
 Package Control.last-run
@@ -484,12 +499,25 @@ tags
 [._]*.un~
 
 ### VisualStudioCode ###
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
 .ionide
+
+# Support for Project snippet scope
 
 ### Windows ###
 # Windows thumbnail cache files
