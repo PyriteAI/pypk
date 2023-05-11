@@ -7,15 +7,17 @@ An opinionated Python packaging template generator.
 pypk autogenerates a complete python package skeleton that is installable out of the box. It assumes the following tools
 are used in your development workflow:
 
-- pip
-- [pip-tools](https://github.com/jazzband/pip-tools)
-- [bandit](https://github.com/PyCQA/bandit)
-- [black](https://github.com/psf/black)
-- [flake8](https://github.com/pycqa/flake8)/[flake8-bugbear](https://github.com/PyCQA/flake8-bugbear)
-- [isort](https://github.com/PyCQA/isort)
-- [pre-commit](https://github.com/pre-commit/pre-commit)
-- [pytest](https://github.com/pytest-dev/pytest)
-- [safety](https://github.com/pyupio/safety)
+| Tool | Description |
+| --- | --- |
+| [pip](https://pypi.org/project/pip/) | The PyPA recommended tool for installing Python packages. |
+| [pip-tools](https://github.com/jazzband/pip-tools) | A set of tools to keep your pinned Python dependencies fresh. |
+| [bandit](https://github.com/PyCQA/bandit) | A tool to find common security issues in Python code. |
+| [black](https://github.com/psf/black) | The uncompromising Python code formatter. |
+| [flake8](https://github.com/pycqa/flake8) / [flake8-bugbear](https://github.com/PyCQA/flake8-bugbear) | Glues together pycodestyle, pyflakes, mccabe, and third-party plugins to check the style and quality / A plugin for Flake8 finding likely bugs and design problems in your program.  |
+| [isort](https://github.com/PyCQA/isort) | A Python utility / library to sort imports. |
+| [pre-commit](https://github.com/pre-commit/pre-commit) |  A framework for managing and maintaining multi-language pre-commit hooks. |
+| [pytest](https://github.com/pytest-dev/pytest) | The Python testing framework. |
+| [safety](https://github.com/pyupio/safety) | Checks your installed dependencies for known security vulnerabilities. |
 
 
 However, once the template is generated, pypk gets out of your way, so you are free to add and/or remove tools,
